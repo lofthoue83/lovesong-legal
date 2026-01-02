@@ -370,22 +370,19 @@
             object-position: center top;
         }
 
-        /* Slideshow Dots */
+        /* Slideshow Dots - Below Phone */
         .slideshow-dots {
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
             display: flex;
-            gap: 8px;
-            z-index: 20;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
         }
 
         .dot {
-            width: 8px;
-            height: 8px;
+            width: 10px;
+            height: 10px;
             border-radius: 50%;
-            background: rgba(255, 255, 255, 0.4);
+            background: var(--text-muted);
             cursor: pointer;
             transition: background 0.3s ease, transform 0.3s ease;
         }
@@ -395,8 +392,8 @@
             transform: scale(1.2);
         }
 
-        .dot:hover {
-            background: rgba(255, 255, 255, 0.7);
+        .dot:hover:not(.active) {
+            background: var(--text-secondary);
         }
 
         /* Floating Elements */
@@ -863,14 +860,15 @@
                                 <img src="screenshots/slide5.jpg" alt="LoveSong App Screenshot 5">
                             </div>
                         </div>
-                        <div class="slideshow-dots" id="slideshowDots">
-                            <span class="dot active" data-slide="0"></span>
-                            <span class="dot" data-slide="1"></span>
-                            <span class="dot" data-slide="2"></span>
-                            <span class="dot" data-slide="3"></span>
-                            <span class="dot" data-slide="4"></span>
-                        </div>
                     </div>
+                </div>
+                <!-- Dots moved outside/below phone -->
+                <div class="slideshow-dots" id="slideshowDots">
+                    <span class="dot active" data-slide="0"></span>
+                    <span class="dot" data-slide="1"></span>
+                    <span class="dot" data-slide="2"></span>
+                    <span class="dot" data-slide="3"></span>
+                    <span class="dot" data-slide="4"></span>
                 </div>
             </div>
         </div>
