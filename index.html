@@ -11,7 +11,7 @@
     <meta property="og:url" content="https://lovesongapp.com">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@400;500;600&family=Poppins:wght@700;800&family=Montserrat:wght@700;800&family=Outfit:wght@700;800&family=Plus+Jakarta+Sans:wght@700;800&family=Sora:wght@700;800&family=Manrope:wght@700;800&family=Rubik:wght@700;800&family=Quicksand:wght@700&family=Nunito:wght@800;900&family=Urbanist:wght@700;800&display=swap" rel="stylesheet">
     <style>
         /* Light Theme (Default) */
         :root, [data-theme="light"] {
@@ -135,14 +135,51 @@
         }
 
         .logo {
-            font-family: var(--font-display);
-            font-size: 1.75rem;
-            font-weight: 600;
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 800;
             background: var(--gradient-romantic);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            letter-spacing: -0.02em;
+            letter-spacing: -0.03em;
+            transition: font-family 0.3s ease;
+        }
+
+        /* Font Switcher */
+        .font-switcher-container {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .font-switcher {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-color);
+            border-radius: 50px;
+            padding: 0.4rem 0.75rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+
+        .font-switcher:hover {
+            border-color: var(--accent-coral);
+            background: var(--bg-card);
+        }
+
+        .font-switcher-icon {
+            font-size: 1rem;
+        }
+
+        .font-name {
+            font-weight: 600;
+            min-width: 80px;
+            text-align: center;
         }
 
         .nav-links {
@@ -612,13 +649,15 @@
         }
 
         .footer-logo {
-            font-family: var(--font-display);
-            font-size: 1.5rem;
-            font-weight: 600;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 800;
             background: var(--gradient-romantic);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            letter-spacing: -0.03em;
+            transition: font-family 0.3s ease;
         }
 
         .footer-links {
@@ -750,7 +789,14 @@
     </button>
 
     <nav>
-        <div class="logo">LovesongStudio</div>
+        <div class="font-switcher-container">
+            <div class="logo" id="logo">LovesongStudio</div>
+            <button class="font-switcher" id="fontSwitcher" title="Font wechseln">
+                <span class="font-switcher-icon">Aa</span>
+                <span class="font-name" id="fontName">Poppins</span>
+                <span>→</span>
+            </button>
+        </div>
         <div class="nav-links">
             <a href="#features">Features</a>
             <a href="#how-it-works">So funktioniert's</a>
@@ -950,7 +996,7 @@
 
     <footer>
         <div class="footer-content">
-            <div class="footer-logo">LovesongStudio</div>
+            <div class="footer-logo" id="footerLogo">LovesongStudio</div>
             <div class="footer-links">
                 <a href="privacy-policy.html">Datenschutz</a>
                 <a href="terms.html">AGB</a>
@@ -963,6 +1009,46 @@
     </footer>
 
     <script>
+        // Font Switcher
+        const fonts = [
+            { name: 'Poppins', family: "'Poppins', sans-serif" },
+            { name: 'Montserrat', family: "'Montserrat', sans-serif" },
+            { name: 'Outfit', family: "'Outfit', sans-serif" },
+            { name: 'Jakarta Sans', family: "'Plus Jakarta Sans', sans-serif" },
+            { name: 'Sora', family: "'Sora', sans-serif" },
+            { name: 'Manrope', family: "'Manrope', sans-serif" },
+            { name: 'Rubik', family: "'Rubik', sans-serif" },
+            { name: 'Quicksand', family: "'Quicksand', sans-serif" },
+            { name: 'Nunito', family: "'Nunito', sans-serif" },
+            { name: 'Urbanist', family: "'Urbanist', sans-serif" }
+        ];
+
+        let currentFontIndex = 0;
+        const logo = document.getElementById('logo');
+        const footerLogo = document.getElementById('footerLogo');
+        const fontName = document.getElementById('fontName');
+        const fontSwitcher = document.getElementById('fontSwitcher');
+
+        function updateFont(index) {
+            const font = fonts[index];
+            logo.style.fontFamily = font.family;
+            footerLogo.style.fontFamily = font.family;
+            fontName.textContent = font.name;
+            localStorage.setItem('selectedFont', index);
+        }
+
+        // Load saved font preference
+        const savedFont = localStorage.getItem('selectedFont');
+        if (savedFont !== null) {
+            currentFontIndex = parseInt(savedFont);
+            updateFont(currentFontIndex);
+        }
+
+        fontSwitcher.addEventListener('click', () => {
+            currentFontIndex = (currentFontIndex + 1) % fonts.length;
+            updateFont(currentFontIndex);
+        });
+
         // Theme Toggle
         const themeToggle = document.getElementById('themeToggle');
         const html = document.documentElement;
