@@ -249,22 +249,23 @@
             font-family: var(--font-display);
             font-size: clamp(2.5rem, 6vw, 4.5rem);
             font-weight: 700;
-            line-height: 1.2;
+            line-height: 1.3;
             margin-bottom: 1.5rem;
             letter-spacing: -0.02em;
             transition: font-family 0.3s ease;
-            padding-bottom: 0.1em;
+            overflow: visible;
         }
 
         .hero-title em {
             font-style: italic;
             background: var(--gradient-romantic);
+            background-size: 100% 120%;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            display: inline-block;
-            padding-bottom: 0.15em;
-            margin-bottom: -0.15em;
+            display: inline;
+            -webkit-box-decoration-break: clone;
+            box-decoration-break: clone;
         }
 
         .hero-description {
