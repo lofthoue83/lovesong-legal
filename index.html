@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="de" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,13 +13,42 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
-        :root {
+        /* Dark Theme (Default) */
+        :root, [data-theme="dark"] {
             --bg-deep: #0a0a0a;
             --bg-card: #141414;
             --bg-elevated: #1a1a1a;
             --text-primary: #ffffff;
             --text-secondary: rgba(255, 255, 255, 0.7);
             --text-muted: rgba(255, 255, 255, 0.5);
+            --border-color: rgba(255, 255, 255, 0.05);
+            --nav-bg: rgba(10, 10, 10, 0.95);
+            --glow-1: rgba(232, 74, 95, 0.08);
+            --glow-2: rgba(255, 132, 124, 0.06);
+            --glow-3: rgba(254, 206, 168, 0.04);
+            --phone-bg: linear-gradient(145deg, #2a2a2a 0%, #1a1a1a 100%);
+            --phone-border: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Light Theme */
+        [data-theme="light"] {
+            --bg-deep: #faf8f5;
+            --bg-card: #ffffff;
+            --bg-elevated: #f5f3f0;
+            --text-primary: #1a1a1a;
+            --text-secondary: rgba(0, 0, 0, 0.65);
+            --text-muted: rgba(0, 0, 0, 0.45);
+            --border-color: rgba(0, 0, 0, 0.08);
+            --nav-bg: rgba(250, 248, 245, 0.95);
+            --glow-1: rgba(232, 74, 95, 0.06);
+            --glow-2: rgba(255, 132, 124, 0.04);
+            --glow-3: rgba(254, 206, 168, 0.03);
+            --phone-bg: linear-gradient(145deg, #1a1a1a 0%, #0a0a0a 100%);
+            --phone-border: rgba(0, 0, 0, 0.2);
+        }
+
+        /* Accent Colors (same for both themes) */
+        :root {
             --accent-rose: #e84a5f;
             --accent-coral: #ff847c;
             --accent-warm: #fecea8;
@@ -44,6 +73,7 @@
             color: var(--text-primary);
             line-height: 1.6;
             overflow-x: hidden;
+            transition: background 0.4s ease, color 0.4s ease;
         }
 
         /* Ambient Background */
@@ -54,18 +84,70 @@
             width: 200%;
             height: 200%;
             background:
-                radial-gradient(ellipse at 20% 20%, rgba(232, 74, 95, 0.08) 0%, transparent 50%),
-                radial-gradient(ellipse at 80% 80%, rgba(255, 132, 124, 0.06) 0%, transparent 50%),
-                radial-gradient(ellipse at 50% 50%, rgba(254, 206, 168, 0.04) 0%, transparent 60%);
+                radial-gradient(ellipse at 20% 20%, var(--glow-1) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, var(--glow-2) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, var(--glow-3) 0%, transparent 60%);
             pointer-events: none;
             z-index: 0;
             animation: ambientDrift 20s ease-in-out infinite;
+            transition: background 0.4s ease;
         }
 
         @keyframes ambientDrift {
             0%, 100% { transform: translate(0, 0) rotate(0deg); }
             33% { transform: translate(2%, 1%) rotate(1deg); }
             66% { transform: translate(-1%, 2%) rotate(-1deg); }
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 1001;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 30px rgba(232, 74, 95, 0.2);
+        }
+
+        .theme-toggle .icon-sun,
+        .theme-toggle .icon-moon {
+            position: absolute;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        [data-theme="dark"] .theme-toggle .icon-sun {
+            opacity: 1;
+            transform: rotate(0deg);
+        }
+
+        [data-theme="dark"] .theme-toggle .icon-moon {
+            opacity: 0;
+            transform: rotate(-90deg);
+        }
+
+        [data-theme="light"] .theme-toggle .icon-sun {
+            opacity: 0;
+            transform: rotate(90deg);
+        }
+
+        [data-theme="light"] .theme-toggle .icon-moon {
+            opacity: 1;
+            transform: rotate(0deg);
         }
 
         /* Navigation */
@@ -79,8 +161,9 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: linear-gradient(to bottom, rgba(10, 10, 10, 0.95) 0%, transparent 100%);
+            background: linear-gradient(to bottom, var(--nav-bg) 0%, transparent 100%);
             backdrop-filter: blur(10px);
+            transition: background 0.4s ease;
         }
 
         .logo {
@@ -198,7 +281,7 @@
             filter: brightness(1.1);
         }
 
-        /* Phone Mockup */
+        /* Phone Mockup with Slideshow */
         .hero-visual {
             position: relative;
             display: flex;
@@ -210,20 +293,21 @@
             position: relative;
             width: 280px;
             height: 580px;
-            background: linear-gradient(145deg, #2a2a2a 0%, #1a1a1a 100%);
+            background: var(--phone-bg);
             border-radius: 45px;
-            padding: 12px;
+            padding: 10px;
             box-shadow:
-                0 50px 100px rgba(0, 0, 0, 0.5),
-                0 0 0 1px rgba(255, 255, 255, 0.1),
+                0 50px 100px rgba(0, 0, 0, 0.4),
+                0 0 0 1px var(--phone-border),
                 inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+            transition: background 0.4s ease;
         }
 
         .phone-screen {
             width: 100%;
             height: 100%;
-            background: linear-gradient(180deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-            border-radius: 35px;
+            background: #000;
+            border-radius: 38px;
             overflow: hidden;
             position: relative;
         }
@@ -233,78 +317,68 @@
             top: 0;
             left: 50%;
             transform: translateX(-50%);
-            width: 120px;
+            width: 100px;
             height: 28px;
             background: #000;
-            border-radius: 0 0 20px 20px;
+            border-radius: 0 0 18px 18px;
+            z-index: 10;
         }
 
-        .phone-content {
-            padding: 50px 20px 20px;
+        /* Screenshot Slideshow */
+        .slideshow {
+            position: relative;
+            width: 100%;
             height: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
         }
 
-        .phone-heart {
-            width: 80px;
-            height: 80px;
-            background: var(--gradient-romantic);
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 0.8s ease-in-out;
+        }
+
+        .slide.active {
+            opacity: 1;
+        }
+
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center top;
+        }
+
+        /* Slideshow Dots */
+        .slideshow-dots {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+            z-index: 20;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
             border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2.5rem;
-            margin-bottom: 1.5rem;
-            animation: heartPulse 2s ease-in-out infinite;
-            box-shadow: 0 10px 40px rgba(232, 74, 95, 0.4);
+            background: rgba(255, 255, 255, 0.4);
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.3s ease;
         }
 
-        @keyframes heartPulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
+        .dot.active {
+            background: var(--accent-rose);
+            transform: scale(1.2);
         }
 
-        .phone-title {
-            font-family: var(--font-display);
-            font-size: 1.25rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .phone-subtitle {
-            font-size: 0.75rem;
-            color: var(--text-secondary);
-        }
-
-        .music-waves {
-            display: flex;
-            gap: 4px;
-            margin-top: 2rem;
-            align-items: flex-end;
-            height: 40px;
-        }
-
-        .wave-bar {
-            width: 4px;
-            background: var(--gradient-romantic);
-            border-radius: 2px;
-            animation: waveAnimation 1s ease-in-out infinite;
-        }
-
-        .wave-bar:nth-child(1) { height: 20px; animation-delay: 0s; }
-        .wave-bar:nth-child(2) { height: 35px; animation-delay: 0.1s; }
-        .wave-bar:nth-child(3) { height: 25px; animation-delay: 0.2s; }
-        .wave-bar:nth-child(4) { height: 40px; animation-delay: 0.3s; }
-        .wave-bar:nth-child(5) { height: 30px; animation-delay: 0.4s; }
-        .wave-bar:nth-child(6) { height: 35px; animation-delay: 0.5s; }
-        .wave-bar:nth-child(7) { height: 20px; animation-delay: 0.6s; }
-
-        @keyframes waveAnimation {
-            0%, 100% { transform: scaleY(1); }
-            50% { transform: scaleY(0.5); }
+        .dot:hover {
+            background: rgba(255, 255, 255, 0.7);
         }
 
         /* Floating Elements */
@@ -378,8 +452,8 @@
             background: var(--bg-card);
             border-radius: 24px;
             padding: 2.5rem;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            transition: transform 0.3s ease, border-color 0.3s ease;
+            border: 1px solid var(--border-color);
+            transition: transform 0.3s ease, border-color 0.3s ease, background 0.4s ease;
         }
 
         .feature-card:hover {
@@ -418,6 +492,7 @@
             z-index: 1;
             padding: 8rem 2rem;
             background: var(--bg-card);
+            transition: background 0.4s ease;
         }
 
         .steps-container {
@@ -446,6 +521,7 @@
             font-family: var(--font-display);
             font-size: 2rem;
             font-weight: 600;
+            color: white;
             flex-shrink: 0;
         }
 
@@ -480,7 +556,8 @@
             background: var(--bg-card);
             border-radius: 24px;
             padding: 2rem;
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            transition: background 0.4s ease;
         }
 
         .testimonial-stars {
@@ -514,6 +591,7 @@
             align-items: center;
             justify-content: center;
             font-weight: 600;
+            color: white;
         }
 
         .author-info {
@@ -551,7 +629,8 @@
             position: relative;
             z-index: 1;
             padding: 4rem 2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            border-top: 1px solid var(--border-color);
+            transition: border-color 0.4s ease;
         }
 
         .footer-content {
@@ -597,7 +676,7 @@
             text-align: center;
             margin-top: 2rem;
             padding-top: 2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            border-top: 1px solid var(--border-color);
         }
 
         /* Mobile Responsive */
@@ -671,6 +750,13 @@
                 flex-wrap: wrap;
                 justify-content: center;
             }
+
+            .theme-toggle {
+                bottom: 1rem;
+                right: 1rem;
+                width: 48px;
+                height: 48px;
+            }
         }
 
         /* Scroll Animations */
@@ -688,6 +774,12 @@
 </head>
 <body>
     <div class="ambient-glow"></div>
+
+    <!-- Theme Toggle Button -->
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+        <span class="icon-sun">☀️</span>
+        <span class="icon-moon">🌙</span>
+    </button>
 
     <nav>
         <div class="logo">LoveSong</div>
@@ -723,19 +815,29 @@
                 <div class="phone-mockup">
                     <div class="phone-screen">
                         <div class="phone-notch"></div>
-                        <div class="phone-content">
-                            <div class="phone-heart">💕</div>
-                            <p class="phone-title">Für Sarah</p>
-                            <p class="phone-subtitle">Ein Song über unsere Geschichte</p>
-                            <div class="music-waves">
-                                <div class="wave-bar"></div>
-                                <div class="wave-bar"></div>
-                                <div class="wave-bar"></div>
-                                <div class="wave-bar"></div>
-                                <div class="wave-bar"></div>
-                                <div class="wave-bar"></div>
-                                <div class="wave-bar"></div>
+                        <div class="slideshow" id="slideshow">
+                            <div class="slide active">
+                                <img src="screenshots/slide1.jpg" alt="LoveSong App Screenshot 1">
                             </div>
+                            <div class="slide">
+                                <img src="screenshots/slide2.jpg" alt="LoveSong App Screenshot 2">
+                            </div>
+                            <div class="slide">
+                                <img src="screenshots/slide3.jpg" alt="LoveSong App Screenshot 3">
+                            </div>
+                            <div class="slide">
+                                <img src="screenshots/slide4.jpg" alt="LoveSong App Screenshot 4">
+                            </div>
+                            <div class="slide">
+                                <img src="screenshots/slide5.jpg" alt="LoveSong App Screenshot 5">
+                            </div>
+                        </div>
+                        <div class="slideshow-dots" id="slideshowDots">
+                            <span class="dot active" data-slide="0"></span>
+                            <span class="dot" data-slide="1"></span>
+                            <span class="dot" data-slide="2"></span>
+                            <span class="dot" data-slide="3"></span>
+                            <span class="dot" data-slide="4"></span>
                         </div>
                     </div>
                 </div>
@@ -884,7 +986,7 @@
             <div class="footer-links">
                 <a href="privacy-policy.html">Datenschutz</a>
                 <a href="terms.html">AGB</a>
-                <a href="mailto:support@lovesongapp.com">Support</a>
+                <a href="support.html">Support</a>
             </div>
             <p class="footer-copyright">
                 © 2026 LoveSong. Mit 💕 gemacht in Deutschland.
@@ -893,6 +995,73 @@
     </footer>
 
     <script>
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const html = document.documentElement;
+
+        // Check for saved theme preference or system preference
+        const savedTheme = localStorage.getItem('theme');
+        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+        if (savedTheme) {
+            html.setAttribute('data-theme', savedTheme);
+        } else if (!systemPrefersDark) {
+            html.setAttribute('data-theme', 'light');
+        }
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+        });
+
+        // Screenshot Slideshow
+        const slides = document.querySelectorAll('.slide');
+        const dots = document.querySelectorAll('.dot');
+        let currentSlide = 0;
+        let slideInterval;
+
+        function showSlide(index) {
+            slides.forEach((slide, i) => {
+                slide.classList.remove('active');
+                dots[i].classList.remove('active');
+            });
+            slides[index].classList.add('active');
+            dots[index].classList.add('active');
+            currentSlide = index;
+        }
+
+        function nextSlide() {
+            const next = (currentSlide + 1) % slides.length;
+            showSlide(next);
+        }
+
+        function startSlideshow() {
+            slideInterval = setInterval(nextSlide, 2000);
+        }
+
+        function stopSlideshow() {
+            clearInterval(slideInterval);
+        }
+
+        // Start automatic slideshow
+        startSlideshow();
+
+        // Click on dots to navigate
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                stopSlideshow();
+                showSlide(index);
+                startSlideshow();
+            });
+        });
+
+        // Pause slideshow on hover
+        const slideshow = document.getElementById('slideshow');
+        slideshow.addEventListener('mouseenter', stopSlideshow);
+        slideshow.addEventListener('mouseleave', startSlideshow);
+
         // Scroll Animation Observer
         const observerOptions = {
             root: null,
