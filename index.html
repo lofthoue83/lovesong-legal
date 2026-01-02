@@ -248,10 +248,11 @@
         .hero-title {
             font-family: var(--font-display);
             font-size: clamp(2.5rem, 6vw, 4.5rem);
-            font-weight: 600;
+            font-weight: 700;
             line-height: 1.1;
             margin-bottom: 1.5rem;
             letter-spacing: -0.02em;
+            transition: font-family 0.3s ease;
         }
 
         .hero-title em {
@@ -436,8 +437,9 @@
         .section-title {
             font-family: var(--font-display);
             font-size: clamp(2rem, 4vw, 3rem);
-            font-weight: 600;
+            font-weight: 700;
             margin-bottom: 1rem;
+            transition: font-family 0.3s ease;
         }
 
         .section-description {
@@ -481,8 +483,9 @@
         .feature-title {
             font-family: var(--font-display);
             font-size: 1.5rem;
-            font-weight: 600;
+            font-weight: 700;
             margin-bottom: 0.75rem;
+            transition: font-family 0.3s ease;
         }
 
         .feature-description {
@@ -533,7 +536,9 @@
         .step-content h3 {
             font-family: var(--font-display);
             font-size: 1.75rem;
+            font-weight: 700;
             margin-bottom: 0.75rem;
+            transition: font-family 0.3s ease;
         }
 
         .step-content p {
@@ -579,6 +584,7 @@
             line-height: 1.7;
             margin-bottom: 1.5rem;
             color: var(--text-primary);
+            transition: font-family 0.3s ease;
         }
 
         .testimonial-author {
@@ -1029,11 +1035,26 @@
         const fontName = document.getElementById('fontName');
         const fontSwitcher = document.getElementById('fontSwitcher');
 
+        // All display text elements that should change font
+        const displayElements = [
+            ...document.querySelectorAll('.hero-title'),
+            ...document.querySelectorAll('.section-title'),
+            ...document.querySelectorAll('.feature-title'),
+            ...document.querySelectorAll('.step-content h3'),
+            ...document.querySelectorAll('.testimonial-text')
+        ];
+
         function updateFont(index) {
             const font = fonts[index];
             logo.style.fontFamily = font.family;
             footerLogo.style.fontFamily = font.family;
             fontName.textContent = font.name;
+
+            // Update all display text elements
+            displayElements.forEach(el => {
+                el.style.fontFamily = font.family;
+            });
+
             localStorage.setItem('selectedFont', index);
         }
 
