@@ -3,12 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LoveSong - Rechtliche Informationen</title>
+    <title>LoveSong – Dein persönlicher Liebessong</title>
+    <meta name="description" content="Erschaffe einzigartige Liebessongs mit KI. Personalisierte Texte, professionelle Musik – für den Menschen, den du liebst.">
+    <meta property="og:title" content="LoveSong – Dein persönlicher Liebessong">
+    <meta property="og:description" content="Erschaffe einzigartige Liebessongs mit KI. Personalisierte Texte, professionelle Musik.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://lovesongapp.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #845EC2;
-            --secondary: #D65DB1;
-            --bg: #FFFDF7;
+            --bg-deep: #0a0a0a;
+            --bg-card: #141414;
+            --bg-elevated: #1a1a1a;
+            --text-primary: #ffffff;
+            --text-secondary: rgba(255, 255, 255, 0.7);
+            --text-muted: rgba(255, 255, 255, 0.5);
+            --accent-rose: #e84a5f;
+            --accent-coral: #ff847c;
+            --accent-warm: #fecea8;
+            --gradient-romantic: linear-gradient(135deg, #e84a5f 0%, #ff847c 50%, #fecea8 100%);
+            --font-display: 'Cormorant Garamond', Georgia, serif;
+            --font-body: 'DM Sans', -apple-system, sans-serif;
         }
 
         * {
@@ -17,126 +34,897 @@
             box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background: var(--bg);
+            font-family: var(--font-body);
+            background: var(--bg-deep);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Ambient Background */
+        .ambient-glow {
+            position: fixed;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background:
+                radial-gradient(ellipse at 20% 20%, rgba(232, 74, 95, 0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(255, 132, 124, 0.06) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(254, 206, 168, 0.04) 0%, transparent 60%);
+            pointer-events: none;
+            z-index: 0;
+            animation: ambientDrift 20s ease-in-out infinite;
+        }
+
+        @keyframes ambientDrift {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(2%, 1%) rotate(1deg); }
+            66% { transform: translate(-1%, 2%) rotate(-1deg); }
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(to bottom, rgba(10, 10, 10, 0.95) 0%, transparent 100%);
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            font-family: var(--font-display);
+            font-size: 1.75rem;
+            font-weight: 600;
+            background: var(--gradient-romantic);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.02em;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-primary);
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 20px;
+            padding: 8rem 2rem 4rem;
+            z-index: 1;
         }
 
-        .container {
-            text-align: center;
-            max-width: 500px;
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
         }
 
-        .logo {
+        .hero-text {
+            animation: fadeInUp 1s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-tagline {
+            font-family: var(--font-body);
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--accent-coral);
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-title {
+            font-family: var(--font-display);
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 600;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.02em;
+        }
+
+        .hero-title em {
+            font-style: italic;
+            background: var(--gradient-romantic);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-description {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            margin-bottom: 2.5rem;
+            max-width: 480px;
+        }
+
+        .cta-group {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .app-store-badge {
+            height: 54px;
+            transition: transform 0.3s ease, filter 0.3s ease;
+        }
+
+        .app-store-badge:hover {
+            transform: scale(1.05);
+            filter: brightness(1.1);
+        }
+
+        /* Phone Mockup */
+        .hero-visual {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            animation: fadeInUp 1s ease-out 0.2s backwards;
+        }
+
+        .phone-mockup {
+            position: relative;
+            width: 280px;
+            height: 580px;
+            background: linear-gradient(145deg, #2a2a2a 0%, #1a1a1a 100%);
+            border-radius: 45px;
+            padding: 12px;
+            box-shadow:
+                0 50px 100px rgba(0, 0, 0, 0.5),
+                0 0 0 1px rgba(255, 255, 255, 0.1),
+                inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+        }
+
+        .phone-screen {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            border-radius: 35px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .phone-notch {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
             width: 120px;
-            height: 120px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            border-radius: 28px;
+            height: 28px;
+            background: #000;
+            border-radius: 0 0 20px 20px;
+        }
+
+        .phone-content {
+            padding: 50px 20px 20px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .phone-heart {
+            width: 80px;
+            height: 80px;
+            background: var(--gradient-romantic);
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 24px;
-            box-shadow: 0 8px 32px rgba(132, 94, 194, 0.3);
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            animation: heartPulse 2s ease-in-out infinite;
+            box-shadow: 0 10px 40px rgba(232, 74, 95, 0.4);
         }
 
-        .logo span {
-            font-size: 48px;
+        @keyframes heartPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
         }
 
-        h1 {
-            font-size: 2rem;
-            color: #1a1a1a;
-            margin-bottom: 8px;
+        .phone-title {
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
         }
 
-        .subtitle {
-            color: #666;
-            margin-bottom: 40px;
+        .phone-subtitle {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
         }
 
-        .links {
+        .music-waves {
+            display: flex;
+            gap: 4px;
+            margin-top: 2rem;
+            align-items: flex-end;
+            height: 40px;
+        }
+
+        .wave-bar {
+            width: 4px;
+            background: var(--gradient-romantic);
+            border-radius: 2px;
+            animation: waveAnimation 1s ease-in-out infinite;
+        }
+
+        .wave-bar:nth-child(1) { height: 20px; animation-delay: 0s; }
+        .wave-bar:nth-child(2) { height: 35px; animation-delay: 0.1s; }
+        .wave-bar:nth-child(3) { height: 25px; animation-delay: 0.2s; }
+        .wave-bar:nth-child(4) { height: 40px; animation-delay: 0.3s; }
+        .wave-bar:nth-child(5) { height: 30px; animation-delay: 0.4s; }
+        .wave-bar:nth-child(6) { height: 35px; animation-delay: 0.5s; }
+        .wave-bar:nth-child(7) { height: 20px; animation-delay: 0.6s; }
+
+        @keyframes waveAnimation {
+            0%, 100% { transform: scaleY(1); }
+            50% { transform: scaleY(0.5); }
+        }
+
+        /* Floating Elements */
+        .floating-notes {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .note {
+            position: absolute;
+            font-size: 1.5rem;
+            opacity: 0.15;
+            animation: floatNote 8s ease-in-out infinite;
+        }
+
+        .note:nth-child(1) { top: 10%; left: 10%; animation-delay: 0s; }
+        .note:nth-child(2) { top: 20%; right: 15%; animation-delay: 1s; }
+        .note:nth-child(3) { bottom: 30%; left: 5%; animation-delay: 2s; }
+        .note:nth-child(4) { bottom: 20%; right: 10%; animation-delay: 3s; }
+
+        @keyframes floatNote {
+            0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.15; }
+            50% { transform: translateY(-20px) rotate(10deg); opacity: 0.25; }
+        }
+
+        /* Features Section */
+        .features {
+            position: relative;
+            z-index: 1;
+            padding: 8rem 2rem;
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 5rem;
+        }
+
+        .section-label {
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--accent-coral);
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .section-description {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            background: var(--bg-card);
+            border-radius: 24px;
+            padding: 2.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(232, 74, 95, 0.3);
+        }
+
+        .feature-icon {
+            width: 64px;
+            height: 64px;
+            background: var(--gradient-romantic);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-title {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+
+        .feature-description {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        /* How It Works */
+        .how-it-works {
+            position: relative;
+            z-index: 1;
+            padding: 8rem 2rem;
+            background: var(--bg-card);
+        }
+
+        .steps-container {
+            max-width: 900px;
+            margin: 0 auto;
             display: flex;
             flex-direction: column;
-            gap: 16px;
+            gap: 4rem;
         }
 
-        a {
-            display: block;
-            padding: 20px 32px;
-            background: white;
-            border-radius: 16px;
-            text-decoration: none;
-            color: var(--primary);
+        .step {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 2.5rem;
+            align-items: start;
+        }
+
+        .step-number {
+            width: 80px;
+            height: 80px;
+            background: var(--gradient-romantic);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-display);
+            font-size: 2rem;
             font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        .step-content h3 {
+            font-family: var(--font-display);
+            font-size: 1.75rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .step-content p {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            max-width: 500px;
+        }
+
+        /* Testimonials */
+        .testimonials {
+            position: relative;
+            z-index: 1;
+            padding: 8rem 2rem;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .testimonial-card {
+            background: var(--bg-card);
+            border-radius: 24px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .testimonial-stars {
+            color: var(--accent-warm);
             font-size: 1.1rem;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-            transition: all 0.2s ease;
+            margin-bottom: 1rem;
+            letter-spacing: 2px;
         }
 
-        a:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 20px rgba(132, 94, 194, 0.2);
+        .testimonial-text {
+            font-family: var(--font-display);
+            font-size: 1.1rem;
+            font-style: italic;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
         }
 
-        a span {
-            display: block;
-            font-size: 0.85rem;
-            font-weight: 400;
-            color: #666;
-            margin-top: 4px;
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
         }
 
-        .app-store {
-            margin-top: 40px;
-            padding-top: 24px;
-            border-top: 1px solid #eee;
+        .author-avatar {
+            width: 48px;
+            height: 48px;
+            background: var(--gradient-romantic);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
         }
 
-        .app-store p {
-            color: #999;
+        .author-info {
             font-size: 0.9rem;
         }
 
+        .author-name {
+            font-weight: 600;
+        }
+
+        .author-detail {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+        }
+
+        /* Final CTA */
+        .final-cta {
+            position: relative;
+            z-index: 1;
+            padding: 8rem 2rem;
+            text-align: center;
+            background: linear-gradient(180deg, transparent 0%, rgba(232, 74, 95, 0.05) 50%, transparent 100%);
+        }
+
+        .final-cta .section-title {
+            margin-bottom: 1.5rem;
+        }
+
+        .final-cta .section-description {
+            margin-bottom: 2.5rem;
+        }
+
+        /* Footer */
         footer {
-            margin-top: 40px;
-            color: #999;
+            position: relative;
+            z-index: 1;
+            padding: 4rem 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .footer-content {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .footer-logo {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 600;
+            background: var(--gradient-romantic);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--text-primary);
+        }
+
+        .footer-copyright {
+            color: var(--text-muted);
             font-size: 0.85rem;
+            width: 100%;
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 968px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-text {
+                order: 1;
+            }
+
+            .hero-visual {
+                order: 0;
+            }
+
+            .hero-description {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .cta-group {
+                justify-content: center;
+            }
+
+            .features-grid,
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+                max-width: 500px;
+            }
+
+            .phone-mockup {
+                width: 240px;
+                height: 500px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                padding: 1rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .hero {
+                padding: 6rem 1.5rem 3rem;
+            }
+
+            .step {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .step-number {
+                margin: 0 auto;
+            }
+
+            .step-content p {
+                margin: 0 auto;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .footer-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+
+        /* Scroll Animations */
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in-up.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="logo">
-            <span>🎵</span>
+    <div class="ambient-glow"></div>
+
+    <nav>
+        <div class="logo">LoveSong</div>
+        <div class="nav-links">
+            <a href="#features">Features</a>
+            <a href="#how-it-works">So funktioniert's</a>
+            <a href="#testimonials">Erfahrungen</a>
         </div>
+    </nav>
 
-        <h1>LoveSong</h1>
-        <p class="subtitle">Personalisierte Liebeslieder mit KI</p>
+    <section class="hero">
+        <div class="floating-notes">
+            <span class="note">♪</span>
+            <span class="note">♫</span>
+            <span class="note">♪</span>
+            <span class="note">♫</span>
+        </div>
+        <div class="hero-content">
+            <div class="hero-text">
+                <p class="hero-tagline">KI-generierte Liebeslieder</p>
+                <h1 class="hero-title">Dein persönlicher <em>Liebessong</em></h1>
+                <p class="hero-description">
+                    Erschaffe einzigartige Songs für die Menschen, die du liebst.
+                    Personalisierte Texte, echte Musik – in Minuten erstellt mit der Kraft der KI.
+                </p>
+                <div class="cta-group">
+                    <a href="https://apps.apple.com/app/lovesong" target="_blank">
+                        <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="Download im App Store" class="app-store-badge">
+                    </a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="phone-mockup">
+                    <div class="phone-screen">
+                        <div class="phone-notch"></div>
+                        <div class="phone-content">
+                            <div class="phone-heart">💕</div>
+                            <p class="phone-title">Für Sarah</p>
+                            <p class="phone-subtitle">Ein Song über unsere Geschichte</p>
+                            <div class="music-waves">
+                                <div class="wave-bar"></div>
+                                <div class="wave-bar"></div>
+                                <div class="wave-bar"></div>
+                                <div class="wave-bar"></div>
+                                <div class="wave-bar"></div>
+                                <div class="wave-bar"></div>
+                                <div class="wave-bar"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-        <div class="links">
-            <a href="privacy-policy.html">
-                Datenschutzerklärung
-                <span>Privacy Policy</span>
+    <section class="features" id="features">
+        <div class="section-header">
+            <p class="section-label">Features</p>
+            <h2 class="section-title">Musik, die von Herzen kommt</h2>
+            <p class="section-description">
+                Jeder Song ist ein Unikat – geschrieben für deine ganz persönliche Liebesgeschichte.
+            </p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card fade-in-up">
+                <div class="feature-icon">✨</div>
+                <h3 class="feature-title">KI-Songwriting</h3>
+                <p class="feature-description">
+                    Unsere KI versteht deine Geschichte und verwandelt sie in berührende Songtexte –
+                    authentisch und voller Emotion.
+                </p>
+            </div>
+            <div class="feature-card fade-in-up">
+                <div class="feature-icon">🎵</div>
+                <h3 class="feature-title">Echte Musik</h3>
+                <p class="feature-description">
+                    Professionelle Produktionsqualität mit echten Instrumenten und Gesang.
+                    Kein MIDI, keine künstlichen Stimmen.
+                </p>
+            </div>
+            <div class="feature-card fade-in-up">
+                <div class="feature-icon">🎨</div>
+                <h3 class="feature-title">Dein Stil</h3>
+                <p class="feature-description">
+                    Von romantischer Ballade bis Pop-Hit – wähle aus verschiedenen Musikstilen
+                    den perfekten Sound für euren Song.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section class="how-it-works" id="how-it-works">
+        <div class="section-header">
+            <p class="section-label">In 3 Schritten</p>
+            <h2 class="section-title">So entsteht dein Song</h2>
+        </div>
+        <div class="steps-container">
+            <div class="step fade-in-up">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <h3>Erzähle eure Geschichte</h3>
+                    <p>
+                        Beantworte ein paar Fragen über die Person und eure gemeinsamen Momente.
+                        Je mehr Details, desto persönlicher wird der Song.
+                    </p>
+                </div>
+            </div>
+            <div class="step fade-in-up">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <h3>Wähle deinen Stil</h3>
+                    <p>
+                        Pop, Akustik, R&B oder klassische Ballade?
+                        Entscheide, wie sich euer Liebeslied anhören soll.
+                    </p>
+                </div>
+            </div>
+            <div class="step fade-in-up">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <h3>Teile die Magie</h3>
+                    <p>
+                        In wenigen Minuten ist dein Song fertig.
+                        Teile ihn direkt per WhatsApp, speichere ihn oder verschenke ihn als Überraschung.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonials" id="testimonials">
+        <div class="section-header">
+            <p class="section-label">Erfahrungen</p>
+            <h2 class="section-title">Was andere sagen</h2>
+        </div>
+        <div class="testimonials-grid">
+            <div class="testimonial-card fade-in-up">
+                <div class="testimonial-stars">★★★★★</div>
+                <p class="testimonial-text">
+                    „Meine Freundin hat geweint vor Glück. Der Song hat perfekt unsere Geschichte erzählt."
+                </p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">M</div>
+                    <div class="author-info">
+                        <p class="author-name">Marco</p>
+                        <p class="author-detail">Jahrestags-Überraschung</p>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card fade-in-up">
+                <div class="testimonial-stars">★★★★★</div>
+                <p class="testimonial-text">
+                    „Ich bin kein Musiker, aber wollte etwas Besonderes zum Valentinstag. Das hier war perfekt!"
+                </p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">J</div>
+                    <div class="author-info">
+                        <p class="author-name">Julia</p>
+                        <p class="author-detail">Valentinstagsgeschenk</p>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card fade-in-up">
+                <div class="testimonial-stars">★★★★★</div>
+                <p class="testimonial-text">
+                    „Unfassbar emotional. Wir haben den Song bei unserer Hochzeit gespielt."
+                </p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">T</div>
+                    <div class="author-info">
+                        <p class="author-name">Thomas & Lisa</p>
+                        <p class="author-detail">Hochzeitssong</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="final-cta">
+        <div class="section-header">
+            <h2 class="section-title">Bereit für deinen Liebessong?</h2>
+            <p class="section-description">
+                Erschaffe jetzt einen Song, der eure Geschichte für immer festhält.
+            </p>
+            <a href="https://apps.apple.com/app/lovesong" target="_blank">
+                <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="Download im App Store" class="app-store-badge">
             </a>
-
-            <a href="terms.html">
-                Nutzungsbedingungen
-                <span>Terms of Service</span>
-            </a>
         </div>
+    </section>
 
-        <div class="app-store">
-            <p>Bald im App Store verfügbar</p>
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">LoveSong</div>
+            <div class="footer-links">
+                <a href="privacy-policy.html">Datenschutz</a>
+                <a href="terms.html">AGB</a>
+                <a href="mailto:support@lovesongapp.com">Support</a>
+            </div>
+            <p class="footer-copyright">
+                © 2026 LoveSong. Mit 💕 gemacht in Deutschland.
+            </p>
         </div>
+    </footer>
 
-        <footer>
-            &copy; 2024 LoveSong UG (haftungsbeschränkt)
-        </footer>
-    </div>
+    <script>
+        // Scroll Animation Observer
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in-up').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
 </body>
 </html>
