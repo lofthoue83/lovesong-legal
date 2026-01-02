@@ -1184,13 +1184,13 @@
 
         function updateFont(index) {
             const font = fonts[index];
-            logo.style.fontFamily = font.family;
-            footerLogo.style.fontFamily = font.family;
-            fontName.textContent = font.name;
+            if (logo) logo.style.fontFamily = font.family;
+            if (footerLogo) footerLogo.style.fontFamily = font.family;
+            if (fontName) fontName.textContent = font.name;
 
             // Update all display text elements
             displayElements.forEach(el => {
-                el.style.fontFamily = font.family;
+                if (el) el.style.fontFamily = font.family;
             });
 
             localStorage.setItem('selectedFont', index);
@@ -1203,10 +1203,12 @@
             updateFont(currentFontIndex);
         }
 
-        fontSwitcher.addEventListener('click', () => {
-            currentFontIndex = (currentFontIndex + 1) % fonts.length;
-            updateFont(currentFontIndex);
-        });
+        if (fontSwitcher) {
+            fontSwitcher.addEventListener('click', () => {
+                currentFontIndex = (currentFontIndex + 1) % fonts.length;
+                updateFont(currentFontIndex);
+            });
+        }
 
         // Theme Toggle
         const themeToggle = document.getElementById('themeToggle');
